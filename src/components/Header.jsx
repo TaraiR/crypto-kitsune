@@ -28,6 +28,8 @@ export default function Header() {
         <a href="/" className="logo">📈 Crypto Tarai</a>
         <nav className="header-nav">
           <Link to="/">ランキング</Link>
+          <Link to="/portfolio">計算機</Link>
+          <Link to="/glossary">用語集</Link>
         </nav>
         <div className="search-wrap">
           <input
