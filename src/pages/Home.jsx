@@ -4,6 +4,7 @@ import { getMarkets } from '../services/coingecko';
 import { useFavorites } from '../hooks/useFavorites';
 import { TableSkeleton } from '../components/Skeleton';
 import FearGreed from '../components/FearGreed';
+import GlobalStats from '../components/GlobalStats';
 import './Home.css';
 
 const fmt = (n) =>
@@ -35,6 +36,7 @@ export default function Home() {
     <main className="container home">
       <h1 className="page-title">仮想通貨 ランキング</h1>
 
+      <GlobalStats />
       <div className="home-top">
         <FearGreed />
       </div>

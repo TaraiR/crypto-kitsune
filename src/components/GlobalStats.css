@@ -1,0 +1,39 @@
+.global-stats {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.gs-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 140px;
+}
+
+.gs-label { font-size: 11px; color: var(--muted); }
+.gs-value { font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.gs-chg { font-size: 12px; }
+.gs-sub { font-size: 11px; color: var(--muted); }
+
+.gs-bar {
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+  display: flex;
+}
+
+.gs-fill { height: 100%; }
+.gs-fill.btc { background: #f7931a; }
+.gs-fill.eth { background: #627eea; }
+
+@media (max-width: 600px) {
+  .gs-item { min-width: calc(50% - 6px); }
+}
