@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getMarkets } from '../services/coingecko';
 import { useFavorites } from '../hooks/useFavorites';
+import { TableSkeleton } from '../components/Skeleton';
+import FearGreed from '../components/FearGreed';
 import './Home.css';
 
 const fmt = (n) =>
@@ -33,11 +35,15 @@ export default function Home() {
     <main className="container home">
       <h1 className="page-title">仮想通貨 ランキング</h1>
 
+      <div className="home-top">
+        <FearGreed />
+      </div>
+
       {/* 広告枠 */}
       <div className="ad-banner">広告スペース（AdSense）</div>
 
       {loading ? (
-        <div className="loading">読み込み中...</div>
+        <TableSkeleton rows={10} />
       ) : (
         <div className="table-wrap">
           <table className="coin-table">

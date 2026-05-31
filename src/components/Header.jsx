@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { searchCoins } from '../services/coingecko';
 import './Header.css';
 
-export default function Header() {
+export default function Header({ dark, onToggleTheme }) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const navigate = useNavigate();
@@ -51,6 +51,9 @@ export default function Header() {
             </ul>
           )}
         </div>
+        <button className="theme-btn" onClick={onToggleTheme} title="テーマ切替">
+          {dark ? '☀️' : '🌙'}
+        </button>
       </div>
     </header>
   );

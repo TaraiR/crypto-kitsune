@@ -9,6 +9,17 @@
   --accent: #00e5ff;
 }
 
+[data-theme="light"] {
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --border: #e1e4e8;
+  --up: #00a846;
+  --down: #d32f2f;
+  --text: #1a1f2e;
+  --muted: #6e7681;
+  --accent: #0077cc;
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {

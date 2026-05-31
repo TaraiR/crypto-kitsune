@@ -9,10 +9,13 @@ import Glossary from './pages/Glossary';
 import Portfolio from './pages/Portfolio';
 import Converter from './pages/Converter';
 import ScrollToTop from './components/ScrollToTop';
+import { useTheme } from './hooks/useTheme';
+
 export default function App() {
+  const { dark, toggle } = useTheme();
   return (
     <BrowserRouter>
-      <Header />
+      <Header dark={dark} onToggleTheme={toggle} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/coin/:id" element={<CoinDetail />} />

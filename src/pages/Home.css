@@ -1,5 +1,12 @@
 .home { padding: 24px 16px; }
 
+.home-top {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
 .page-title {
   font-size: 24px;
   font-weight: 700;
