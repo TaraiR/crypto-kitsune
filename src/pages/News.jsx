@@ -23,16 +23,19 @@ export default function News() {
       <div className="news-grid">
         {news.map((item, i) => (
           <a key={i} href={item.url} target="_blank" rel="noopener noreferrer" className="news-card">
-            {item.thumb_2x && (
-              <img src={item.thumb_2x} alt={item.title} className="news-img" />
-            )}
             <div className="news-body">
               <div className="news-meta">
-                <span className="news-source">{item.news_site}</span>
-                <span className="news-date">{new Date(item.created_at * 1000).toLocaleDateString('ja-JP')}</span>
+                <span className="news-source">{item.source?.title}</span>
+                <span className="news-date">{new Date(item.published_at).toLocaleDateString('ja-JP')}</span>
               </div>
               <h2 className="news-title">{item.title}</h2>
-              <p className="news-desc">{item.description}</p>
+              {item.currencies?.length > 0 && (
+                <div className="news-tags">
+                  {item.currencies.slice(0, 3).map(c => (
+                    <span key={c.code} className="news-tag">{c.code}</span>
+                  ))}
+                </div>
+              )}
             </div>
           </a>
         ))}
