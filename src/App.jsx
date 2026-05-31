@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import CoinDetail from './pages/CoinDetail';
 import Privacy from './pages/Privacy';
 import Contact from './pages/Contact';
+import News from './pages/News';
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/coin/:id" element={<CoinDetail />} />
+        <Route path="/news" element={<News />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>

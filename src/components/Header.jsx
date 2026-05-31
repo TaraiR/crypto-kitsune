@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { searchCoins } from '../services/coingecko';
 import './Header.css';
 
@@ -26,6 +26,10 @@ export default function Header() {
     <header className="header">
       <div className="container header-inner">
         <a href="/" className="logo">📈 Crypto Tarai</a>
+        <nav className="header-nav">
+          <Link to="/">ランキング</Link>
+          <Link to="/news">ニュース</Link>
+        </nav>
         <div className="search-wrap">
           <input
             className="search-input"

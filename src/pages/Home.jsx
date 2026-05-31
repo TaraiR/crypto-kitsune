@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getMarkets } from '../services/coingecko';
+import { useFavorites } from '../hooks/useFavorites';
 import './Home.css';
 
 const fmt = (n) =>
@@ -18,6 +19,7 @@ export default function Home() {
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
+  const { toggle, isFav } = useFavorites();
 
   useEffect(() => {
     setLoading(true);
@@ -47,6 +49,7 @@ export default function Home() {
                 <th>24h変動</th>
                 <th>時価総額</th>
                 <th>24h出来高</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -68,6 +71,11 @@ export default function Home() {
                     </td>
                     <td className="num">{fmt(c.market_cap)}</td>
                     <td className="num">{fmt(c.total_volume)}</td>
+                    <td>
+                      <button className={`fav-btn ${isFav(c.id) ? 'active' : ''}`} onClick={() => toggle(c.id)}>
+                        {isFav(c.id) ? '★' : '☆'}
+                      </button>
+                    </td>
                   </tr>
                 );
               })}

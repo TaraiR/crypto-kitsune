@@ -26,3 +26,6 @@ export const getMarketChart = (id, days = 7) =>
 
 export const searchCoins = (query) =>
   axios.get(`${BASE}/search`, { params: { query } }).then(r => r.data.coins.slice(0, 10));
+
+export const getNews = () =>
+  axios.get(`${BASE}/news`).then(r => r.data.data?.slice(0, 20) ?? []);

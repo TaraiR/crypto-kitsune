@@ -20,6 +20,19 @@
   white-space: nowrap;
 }
 
+.header-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.header-nav a {
+  font-size: 14px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.header-nav a:hover { color: var(--accent); }
+
 .search-wrap {
   position: relative;
   flex: 1;
@@ -71,5 +84,7 @@
 @media (max-width: 600px) {
   .logo { font-size: 16px; }
   .search-wrap { max-width: unset; }
-  .header-inner { gap: 12px; }
+  .header-inner { gap: 8px; flex-wrap: wrap; }
+  .header-nav { gap: 12px; }
+  .header-nav a { font-size: 13px; }
 }
