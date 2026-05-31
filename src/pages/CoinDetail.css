@@ -115,3 +115,18 @@
 .description p { font-size: 14px; line-height: 1.7; color: var(--muted); }
 
 .loading { padding: 80px; text-align: center; color: var(--muted); }
+
+@media (max-width: 600px) {
+  .detail-header h1 { font-size: 20px; }
+  .detail-header img { width: 36px; height: 36px; }
+
+  .big-price { font-size: 26px; }
+  .change-badge { font-size: 14px; }
+
+  .period-tabs { flex-wrap: wrap; }
+  .period-tabs button { padding: 6px 12px; font-size: 12px; }
+
+  .chart-wrap { padding: 12px; }
+
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}

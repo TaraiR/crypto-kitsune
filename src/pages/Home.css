@@ -59,6 +59,65 @@
 
 .num { text-align: right; font-variant-numeric: tabular-nums; }
 
+/* スマホ：カード表示 */
+@media (max-width: 600px) {
+  .table-wrap { overflow-x: unset; }
+
+  .coin-table thead { display: none; }
+
+  .coin-table tbody tr {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 12px 8px;
+    border-bottom: 1px solid var(--border);
+    gap: 4px;
+  }
+
+  .coin-table td {
+    display: inline;
+    padding: 0;
+    border: none;
+    white-space: nowrap;
+  }
+
+  .coin-table td.rank {
+    font-size: 12px;
+    color: var(--muted);
+    width: 24px;
+  }
+
+  .coin-table td:nth-child(2) { flex: 1; }
+
+  .coin-name { gap: 6px; }
+  .coin-name img { width: 20px; height: 20px; }
+  .coin-name span:first-of-type { font-size: 14px; font-weight: 600; }
+
+  .coin-table td.num {
+    font-size: 13px;
+    text-align: right;
+  }
+
+  /* 価格は右端に大きく */
+  .coin-table td:nth-child(3) {
+    margin-left: auto;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  /* 24h変動・時価総額・出来高を2行目に */
+  .coin-table td:nth-child(4),
+  .coin-table td:nth-child(5),
+  .coin-table td:nth-child(6) {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .coin-table td:nth-child(4) { width: 100%; padding-left: 30px; }
+  .coin-table td:nth-child(5)::before { content: '時価総額 '; color: var(--muted); }
+  .coin-table td:nth-child(6) { display: none; }
+}
+
 .pagination {
   display: flex;
   align-items: center;
