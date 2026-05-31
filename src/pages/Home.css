@@ -1,0 +1,84 @@
+.home { padding: 24px 16px; }
+
+.page-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--accent);
+}
+
+.ad-banner {
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  color: var(--muted);
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.table-wrap { overflow-x: auto; }
+
+.coin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.coin-table th {
+  text-align: left;
+  padding: 10px 12px;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.coin-table td {
+  padding: 12px 12px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.coin-table tr:hover td { background: var(--surface); }
+
+.rank { color: var(--muted); width: 40px; }
+
+.coin-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.coin-name img { border-radius: 50%; }
+
+.symbol {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.pagination button {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.pagination button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.pagination button:disabled { opacity: 0.4; cursor: default; }
+.pagination span { color: var(--muted); font-size: 14px; }
+
+.loading { text-align: center; padding: 60px; color: var(--muted); }

@@ -1,0 +1,117 @@
+.detail { padding: 24px 16px; }
+
+.ad-banner {
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  color: var(--muted);
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.detail-header img { border-radius: 50%; }
+
+.detail-header h1 { font-size: 28px; font-weight: 700; }
+
+.symbol-tag {
+  font-size: 16px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.rank-tag {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.price-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.big-price {
+  font-size: 36px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.change-badge {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.change-badge.up { background: rgba(0,200,83,0.15); }
+.change-badge.down { background: rgba(255,23,68,0.15); }
+
+.period-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.period-tabs button {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 6px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.period-tabs button.active,
+.period-tabs button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.chart-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.stat-label { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+.stat-val { font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.description {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.description h2 { font-size: 16px; margin-bottom: 12px; color: var(--accent); }
+.description p { font-size: 14px; line-height: 1.7; color: var(--muted); }
+
+.loading { padding: 80px; text-align: center; color: var(--muted); }
