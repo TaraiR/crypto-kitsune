@@ -29,6 +29,7 @@ export default function Header() {
         <nav className="header-nav">
           <Link to="/">ランキング</Link>
           <Link to="/portfolio">計算機</Link>
+          <Link to="/converter">変換</Link>
           <Link to="/glossary">用語集</Link>
         </nav>
         <div className="search-wrap">
