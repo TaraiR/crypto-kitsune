@@ -25,7 +25,7 @@ export default function Header() {
   return (
     <header className="header">
       <div className="container header-inner">
-        <a href="/" className="logo">🦊 CryptoKitsune</a>
+        <a href="/" className="logo">📈 Crypto Tarai</a>
         <div className="search-wrap">
           <input
             className="search-input"
