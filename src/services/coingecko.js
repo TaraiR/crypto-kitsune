@@ -30,3 +30,17 @@ export const searchCoins = (query) =>
 export const getGlobalData = () =>
   axios.get(`${BASE}/global`).then(r => r.data.data);
 
+export const getTrending = () =>
+  axios.get(`${BASE}/search/trending`).then(r => r.data.coins.slice(0, 7));
+
+export const getCoinsByIds = (ids) =>
+  axios.get(`${BASE}/coins/markets`, {
+    params: {
+      vs_currency: 'jpy',
+      ids: ids.join(','),
+      order: 'market_cap_desc',
+      sparkline: false,
+      price_change_percentage: '24h',
+    },
+  }).then(r => r.data);
+

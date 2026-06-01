@@ -9,6 +9,8 @@ import Glossary from './pages/Glossary';
 import Portfolio from './pages/Portfolio';
 import Converter from './pages/Converter';
 import Compare from './pages/Compare';
+import Favorites from './pages/Favorites';
+import Events from './pages/Events';
 import ScrollToTop from './components/ScrollToTop';
 import { useTheme } from './hooks/useTheme';
 
@@ -24,6 +26,8 @@ export default function App() {
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/converter" element={<Converter />} />
         <Route path="/compare" element={<Compare />} />
+        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/events" element={<Events />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>

@@ -31,6 +31,8 @@ export default function Header({ dark, onToggleTheme }) {
           <Link to="/portfolio">計算機</Link>
           <Link to="/converter">変換</Link>
           <Link to="/compare">比較</Link>
+          <Link to="/favorites">★お気に入り</Link>
+          <Link to="/events">イベント</Link>
           <Link to="/glossary">用語集</Link>
         </nav>
         <div className="search-wrap">

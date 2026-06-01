@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getMarkets } from '../services/coingecko';
+import { getCoinsByIds } from '../services/coingecko';
 import { useFavorites } from '../hooks/useFavorites';
-import { TableSkeleton } from '../components/Skeleton';
-import FearGreed from '../components/FearGreed';
-import GlobalStats from '../components/GlobalStats';
-import Trending from '../components/Trending';
-import './Home.css';
+import './Favorites.css';
+
+const fmtPrice = (n) =>
+  !n ? '-' :
+  n >= 1 ? `¥${n.toLocaleString('ja-JP', { maximumFractionDigits: 0 })}` :
+  `¥${n.toFixed(6)}`;
 
 const fmt = (n) =>
   !n ? '-' :
@@ -14,46 +15,34 @@ const fmt = (n) =>
   n >= 1e8  ? `¥${(n / 1e8).toFixed(2)}億` :
   `¥${n.toLocaleString('ja-JP')}`;
 
-const fmtPrice = (n) =>
-  !n ? '-' :
-  n >= 1 ? `¥${n.toLocaleString('ja-JP', { maximumFractionDigits: 0 })}` :
-  `¥${n.toFixed(6)}`;
-
-export default function Home() {
+export default function Favorites() {
+  const { favorites, toggle, isFav } = useFavorites();
   const [coins, setCoins] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
-  const { toggle, isFav } = useFavorites();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (!favorites.length) { setCoins([]); return; }
     setLoading(true);
-    getMarkets(page).then(data => {
-      setCoins(data);
-      setLoading(false);
-    });
-  }, [page]);
+    getCoinsByIds(favorites).then(data => { setCoins(data); setLoading(false); });
+  }, [favorites]);
 
   return (
-    <main className="container home">
-      <h1 className="page-title">仮想通貨 ランキング</h1>
+    <main className="container favorites">
+      <h1 className="page-title">⭐ お気に入り</h1>
 
-      <GlobalStats />
-      <Trending />
-      <div className="home-top">
-        <FearGreed />
-      </div>
-
-      {/* 広告枠 */}
-      <div className="ad-banner">広告スペース（AdSense）</div>
-
-      {loading ? (
-        <TableSkeleton rows={10} />
+      {favorites.length === 0 ? (
+        <div className="empty">
+          <p>お気に入りがまだありません。</p>
+          <p>ランキング画面の ☆ ボタンでコインを追加できます。</p>
+          <Link to="/" className="go-ranking">ランキングへ →</Link>
+        </div>
+      ) : loading ? (
+        <div className="loading">読み込み中...</div>
       ) : (
         <div className="table-wrap">
           <table className="coin-table">
             <thead>
               <tr>
-                <th>#</th>
                 <th>コイン</th>
                 <th>価格（円）</th>
                 <th>24h変動</th>
@@ -63,11 +52,10 @@ export default function Home() {
               </tr>
             </thead>
             <tbody>
-              {coins.map((c, i) => {
+              {coins.map(c => {
                 const chg = c.price_change_percentage_24h;
                 return (
                   <tr key={c.id}>
-                    <td className="rank">{(page - 1) * 50 + i + 1}</td>
                     <td>
                       <Link to={`/coin/${c.id}`} className="coin-name">
                         <img src={c.image} alt={c.name} width={24} height={24} />
@@ -82,9 +70,7 @@ export default function Home() {
                     <td className="num">{fmt(c.market_cap)}</td>
                     <td className="num">{fmt(c.total_volume)}</td>
                     <td>
-                      <button className={`fav-btn ${isFav(c.id) ? 'active' : ''}`} onClick={() => toggle(c.id)}>
-                        {isFav(c.id) ? '★' : '☆'}
-                      </button>
+                      <button className="fav-btn active" onClick={() => toggle(c.id)}>★</button>
                     </td>
                   </tr>
                 );
@@ -93,12 +79,6 @@ export default function Home() {
           </table>
         </div>
       )}
-
-      <div className="pagination">
-        <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>← 前</button>
-        <span>{page}ページ</span>
-        <button onClick={() => setPage(p => p + 1)}>次 →</button>
-      </div>
     </main>
   );
 }
