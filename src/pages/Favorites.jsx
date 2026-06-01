@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDocTitle } from '../hooks/useDocTitle';
 import { getCoinsByIds } from '../services/coingecko';
 import { useFavorites } from '../hooks/useFavorites';
 import { useDocTitle } from '../hooks/useDocTitle';
