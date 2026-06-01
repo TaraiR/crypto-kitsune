@@ -35,6 +35,17 @@ export default function Header({ dark, onToggleTheme }) {
     navigate(`/coin/${id}`);
   };
 
+  const goSearch = () => {
+    if (!query.trim()) return;
+    setResults([]);
+    navigate(`/search?q=${encodeURIComponent(query.trim())}`);
+    setQuery('');
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') goSearch();
+  };
+
   const closeMenu = () => setMenuOpen(false);
 
   return (
@@ -52,10 +63,12 @@ export default function Header({ dark, onToggleTheme }) {
         <div className="search-wrap">
           <input
             className="search-input"
-            placeholder="コインを検索..."
+            placeholder="コインを検索... (Enter)"
             value={query}
             onChange={handleSearch}
+            onKeyDown={handleKeyDown}
           />
+          <button className="search-btn" onClick={goSearch}>🔍</button>
           {results.length > 0 && (
             <ul className="search-dropdown">
               {results.map(c => (

@@ -45,7 +45,7 @@
 
 .search-input {
   width: 100%;
-  padding: 7px 12px;
+  padding: 7px 32px 7px 12px;
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -55,6 +55,19 @@
 }
 
 .search-input:focus { border-color: var(--accent); }
+
+.search-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px;
+  line-height: 1;
+}
 
 .search-dropdown {
   position: absolute;
