@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
+  <rect width="1200" height="630" fill="#0d0f14"/>
+  <rect x="0" y="0" width="1200" height="4" fill="#00e5ff"/>
+  <text x="100" y="260" font-family="system-ui, sans-serif" font-size="80" font-weight="900" fill="#00e5ff">📈 Crypto Tarai</text>
+  <text x="100" y="360" font-family="system-ui, sans-serif" font-size="36" fill="#8b949e">仮想通貨のリアルタイム価格・チャート・ランキング</text>
+  <text x="100" y="430" font-family="system-ui, sans-serif" font-size="28" fill="#21262d">crypto-tarai.vercel.app</text>
+</svg>

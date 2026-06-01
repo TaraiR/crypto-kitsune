@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getCoinDetail, getMarketChart } from '../services/coingecko';
+import { useParams, Link } from 'react-router-dom';
+import { getCoinDetail, getMarketChart, getMarkets } from '../services/coingecko';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { useFavorites } from '../hooks/useFavorites';
 import './CoinDetail.css';
 
 const PERIODS = [
@@ -25,9 +26,12 @@ export default function CoinDetail() {
   const [chart, setChart] = useState([]);
   const [days, setDays] = useState(7);
   const [loading, setLoading] = useState(true);
+  const [related, setRelated] = useState([]);
+  const { toggle, isFav } = useFavorites();
 
   useEffect(() => {
     setLoading(true);
+    setCoin(null);
     Promise.all([getCoinDetail(id), getMarketChart(id, days)]).then(([detail, chartData]) => {
       setCoin(detail);
       setChart(chartData.prices.map(([ts, price]) => ({
@@ -35,8 +39,13 @@ export default function CoinDetail() {
         price,
       })));
       setLoading(false);
+      // 関連コイン：同カテゴリ周辺の上位コインを取得
+      getMarkets(1).then(markets => {
+        const others = markets.filter(c => c.id !== id).slice(0, 6);
+        setRelated(others);
+      });
     });
-  }, [id, days]);
+  }, [id]);
 
   if (loading) return <div className="loading container">読み込み中...</div>;
   if (!coin) return null;
@@ -55,6 +64,9 @@ export default function CoinDetail() {
           <h1>{coin.name} <span className="symbol-tag">{coin.symbol.toUpperCase()}</span></h1>
           <div className="rank-tag">時価総額 #{coin.market_cap_rank}</div>
         </div>
+        <button className={`fav-btn-detail ${isFav(id) ? 'active' : ''}`} onClick={() => toggle(id)}>
+          {isFav(id) ? '★ お気に入り済み' : '☆ お気に入り追加'}
+        </button>
       </div>
 
       <div className="price-row">
@@ -118,6 +130,36 @@ export default function CoinDetail() {
         <div className="description">
           <h2>概要</h2>
           <p dangerouslySetInnerHTML={{ __html: coin.description.ja.split('. ').slice(0, 3).join('. ') + '.' }} />
+        </div>
+      )}
+
+      {related.length > 0 && (
+        <div className="related">
+          <h2 className="related-title">関連コイン</h2>
+          <div className="related-grid">
+            {related.map(c => {
+              const chg = c.price_change_percentage_24h;
+              return (
+                <Link key={c.id} to={`/coin/${c.id}`} className="related-card">
+                  <img src={c.image} alt={c.name} width={28} height={28} />
+                  <div className="related-info">
+                    <span className="related-name">{c.name}</span>
+                    <span className="related-symbol">{c.symbol.toUpperCase()}</span>
+                  </div>
+                  <div className="related-right">
+                    <span className="related-price">
+                      {c.current_price >= 1
+                        ? `¥${c.current_price.toLocaleString('ja-JP', { maximumFractionDigits: 0 })}`
+                        : `¥${c.current_price.toFixed(4)}`}
+                    </span>
+                    <span className={`related-chg ${chg >= 0 ? 'up' : 'down'}`}>
+                      {chg >= 0 ? '▲' : '▼'}{Math.abs(chg).toFixed(2)}%
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
         </div>
       )}
     </main>
