@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { searchCoins } from '../services/coingecko';
+import { translateJaQuery } from '../services/jaMap';
 import './Header.css';
 
 const NAV_LINKS = [
@@ -24,7 +25,8 @@ export default function Header({ dark, onToggleTheme }) {
     const val = e.target.value;
     setQuery(val);
     if (val.length < 2) { setResults([]); return; }
-    const coins = await searchCoins(val);
+    const translated = translateJaQuery(val);
+    const coins = await searchCoins(translated);
     setResults(coins);
   };
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { searchCoins } from '../services/coingecko';
-import { getCoinsByIds } from '../services/coingecko';
+import { searchCoins, getCoinsByIds } from '../services/coingecko';
+import { translateJaQuery } from '../services/jaMap';
 import './Search.css';
 
 const fmtPrice = (n) =>
@@ -19,7 +19,8 @@ export default function Search() {
     if (!query) return;
     setLoading(true);
     setCoins([]);
-    searchCoins(query).then(async (results) => {
+    const translated = translateJaQuery(query);
+    searchCoins(translated).then(async (results) => {
       if (!results.length) { setLoading(false); return; }
       const ids = results.map(r => r.id);
       try {
