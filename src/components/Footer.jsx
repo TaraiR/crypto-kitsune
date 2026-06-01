@@ -7,6 +7,7 @@ export default function Footer() {
       <div className="container footer-inner">
         <span className="footer-logo">📈 Crypto Tarai</span>
         <nav className="footer-links">
+          <Link to="/about">サイトについて</Link>
           <Link to="/privacy">プライバシーポリシー</Link>
           <Link to="/contact">お問い合わせ</Link>
         </nav>

@@ -58,6 +58,7 @@ const TYPE_COLOR = {
 };
 
 export default function Events() {
+  useDocTitle('重要イベントカレンダー');
   const past = EVENTS.filter(e => e.done).reverse();
   const upcoming = EVENTS.filter(e => !e.done);
 

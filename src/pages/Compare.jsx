@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getMarkets, getMarketChart } from '../services/coingecko';
+import { useDocTitle } from '../hooks/useDocTitle';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import './Compare.css';
 
@@ -21,6 +22,7 @@ const fmt = (n) =>
   `¥${n.toLocaleString('ja-JP')}`;
 
 export default function Compare() {
+  useDocTitle('コイン比較');
   const [coins, setCoins] = useState([]);
   const [coinA, setCoinA] = useState('bitcoin');
   const [coinB, setCoinB] = useState('ethereum');

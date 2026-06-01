@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './Glossary.css';
+import { useDocTitle } from '../hooks/useDocTitle';
 
 const TERMS = [
   {
@@ -252,6 +253,7 @@ const TERMS = [
 const CATEGORIES = ['すべて', '基礎', '技術', '投資', 'トレンド', '詐欺対策'];
 
 export default function Glossary() {
+  useDocTitle('仮想通貨 用語集');
   const [cat, setCat] = useState('すべて');
   const [query, setQuery] = useState('');
 

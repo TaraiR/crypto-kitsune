@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { getCoinDetail, getMarketChart, getMarkets } from '../services/coingecko';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { useFavorites } from '../hooks/useFavorites';
+import { useDocTitle } from '../hooks/useDocTitle';
 import './CoinDetail.css';
 
 const PERIODS = [
@@ -28,6 +29,7 @@ export default function CoinDetail() {
   const [loading, setLoading] = useState(true);
   const [related, setRelated] = useState([]);
   const { toggle, isFav } = useFavorites();
+  useDocTitle(coin ? `${coin.name}(${coin.symbol.toUpperCase()}) 価格・チャート` : null);
 
   // コイン基本情報＋関連コイン（idが変わった時のみ）
   useEffect(() => {

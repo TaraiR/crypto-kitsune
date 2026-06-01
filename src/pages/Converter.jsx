@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { getMarkets } from '../services/coingecko';
+import { useDocTitle } from '../hooks/useDocTitle';
 import './Converter.css';
 
 export default function Converter() {
+  useDocTitle('価格変換ツール');
   const [coins, setCoins] = useState([]);
   const [coinId, setCoinId] = useState('bitcoin');
   const [amount, setAmount] = useState('1');

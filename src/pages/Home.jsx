@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getMarkets } from '../services/coingecko';
 import { useFavorites } from '../hooks/useFavorites';
+import { useDocTitle } from '../hooks/useDocTitle';
 import { TableSkeleton } from '../components/Skeleton';
 import FearGreed from '../components/FearGreed';
 import GlobalStats from '../components/GlobalStats';
@@ -20,17 +21,23 @@ const fmtPrice = (n) =>
   `¥${n.toFixed(6)}`;
 
 export default function Home() {
+  useDocTitle('仮想通貨 価格ランキング');
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const { toggle, isFav } = useFavorites();
 
-  useEffect(() => {
+  const fetchCoins = (p) => {
     setLoading(true);
-    getMarkets(page).then(data => {
-      setCoins(data);
-      setLoading(false);
-    });
+    getMarkets(p).then(data => { setCoins(data); setLoading(false); });
+  };
+
+  useEffect(() => { fetchCoins(page); }, [page]);
+
+  // 30秒ごとに自動更新（キャッシュをバイパス）
+  useEffect(() => {
+    const timer = setInterval(() => fetchCoins(page), 30000);
+    return () => clearInterval(timer);
   }, [page]);
 
   return (

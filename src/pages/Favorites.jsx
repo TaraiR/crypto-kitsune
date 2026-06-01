@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDocTitle } from '../hooks/useDocTitle';
 import { getCoinsByIds } from '../services/coingecko';
 import { useFavorites } from '../hooks/useFavorites';
+import { useDocTitle } from '../hooks/useDocTitle';
 import './Favorites.css';
 
 const fmtPrice = (n) =>
@@ -16,6 +18,7 @@ const fmt = (n) =>
   `¥${n.toLocaleString('ja-JP')}`;
 
 export default function Favorites() {
+  useDocTitle('お気に入り');
   const { favorites, toggle, isFav } = useFavorites();
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(false);

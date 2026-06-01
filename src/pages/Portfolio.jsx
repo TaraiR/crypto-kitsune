@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getMarkets } from '../services/coingecko';
+import { useDocTitle } from '../hooks/useDocTitle';
 import './Portfolio.css';
 
 const fmt = (n) =>
@@ -7,6 +8,7 @@ const fmt = (n) =>
   `¥${Math.round(n).toLocaleString('ja-JP')}`;
 
 export default function Portfolio() {
+  useDocTitle('ポートフォリオ計算機');
   const [coins, setCoins] = useState([]);
   const [rows, setRows] = useState([{ coinId: '', amount: '' }]);
   const [loading, setLoading] = useState(true);
