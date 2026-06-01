@@ -10,43 +10,47 @@
 .header-inner {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 16px;
 }
 
 .logo {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--accent);
   white-space: nowrap;
 }
 
-.header-nav {
+/* PC用ナビ */
+.desktop-nav {
   display: flex;
-  gap: 20px;
+  gap: 16px;
 }
 
-.header-nav a {
-  font-size: 14px;
+.desktop-nav a {
+  font-size: 13px;
   color: var(--muted);
   white-space: nowrap;
 }
 
-.header-nav a:hover { color: var(--accent); }
+.desktop-nav a:hover,
+.desktop-nav a.active { color: var(--accent); }
 
+/* 検索 */
 .search-wrap {
   position: relative;
   flex: 1;
-  max-width: 400px;
+  max-width: 280px;
+  margin-left: auto;
 }
 
 .search-input {
   width: 100%;
-  padding: 8px 14px;
+  padding: 7px 12px;
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 8px;
   color: var(--text);
-  font-size: 14px;
+  font-size: 13px;
   outline: none;
 }
 
@@ -62,6 +66,7 @@
   border-radius: 8px;
   list-style: none;
   overflow: hidden;
+  z-index: 200;
 }
 
 .search-dropdown li {
@@ -81,22 +86,64 @@
   font-size: 12px;
 }
 
+/* テーマボタン */
 .theme-btn {
   background: none;
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 6px 10px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 15px;
   flex-shrink: 0;
 }
 
 .theme-btn:hover { border-color: var(--accent); }
 
-@media (max-width: 600px) {
-  .logo { font-size: 16px; }
+/* ハンバーガー */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+/* スマホ用ドロワー */
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 8px 0;
+}
+
+.mobile-nav a {
+  padding: 12px 20px;
+  font-size: 15px;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.mobile-nav a:last-child { border-bottom: none; }
+.mobile-nav a:hover,
+.mobile-nav a.active { color: var(--accent); background: rgba(0,229,255,0.04); }
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+  .desktop-nav { display: none; }
+  .hamburger { display: flex; }
   .search-wrap { max-width: unset; }
-  .header-inner { gap: 8px; flex-wrap: wrap; }
-  .header-nav { gap: 12px; }
-  .header-nav a { font-size: 13px; }
 }

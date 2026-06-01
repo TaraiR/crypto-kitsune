@@ -1,12 +1,24 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { searchCoins } from '../services/coingecko';
 import './Header.css';
+
+const NAV_LINKS = [
+  { to: '/', label: 'ランキング' },
+  { to: '/portfolio', label: '計算機' },
+  { to: '/converter', label: '変換' },
+  { to: '/compare', label: '比較' },
+  { to: '/favorites', label: '★お気に入り' },
+  { to: '/events', label: 'イベント' },
+  { to: '/glossary', label: '用語集' },
+];
 
 export default function Header({ dark, onToggleTheme }) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSearch = async (e) => {
     const val = e.target.value;
@@ -19,22 +31,24 @@ export default function Header({ dark, onToggleTheme }) {
   const go = (id) => {
     setQuery('');
     setResults([]);
+    setMenuOpen(false);
     navigate(`/coin/${id}`);
   };
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <header className="header">
       <div className="container header-inner">
         <a href="/" className="logo">📈 Crypto Tarai</a>
-        <nav className="header-nav">
-          <Link to="/">ランキング</Link>
-          <Link to="/portfolio">計算機</Link>
-          <Link to="/converter">変換</Link>
-          <Link to="/compare">比較</Link>
-          <Link to="/favorites">★お気に入り</Link>
-          <Link to="/events">イベント</Link>
-          <Link to="/glossary">用語集</Link>
+
+        {/* PC用ナビ */}
+        <nav className="header-nav desktop-nav">
+          {NAV_LINKS.map(l => (
+            <Link key={l.to} to={l.to} className={location.pathname === l.to ? 'active' : ''}>{l.label}</Link>
+          ))}
         </nav>
+
         <div className="search-wrap">
           <input
             className="search-input"
@@ -54,10 +68,29 @@ export default function Header({ dark, onToggleTheme }) {
             </ul>
           )}
         </div>
+
         <button className="theme-btn" onClick={onToggleTheme} title="テーマ切替">
           {dark ? '☀️' : '🌙'}
         </button>
+
+        {/* ハンバーガーボタン（スマホのみ） */}
+        <button className="hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="メニュー">
+          <span className={menuOpen ? 'bar open' : 'bar'} />
+          <span className={menuOpen ? 'bar open' : 'bar'} />
+          <span className={menuOpen ? 'bar open' : 'bar'} />
+        </button>
       </div>
+
+      {/* スマホ用ドロワー */}
+      {menuOpen && (
+        <nav className="mobile-nav">
+          {NAV_LINKS.map(l => (
+            <Link key={l.to} to={l.to} className={location.pathname === l.to ? 'active' : ''} onClick={closeMenu}>
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+      )}
     </header>
   );
 }

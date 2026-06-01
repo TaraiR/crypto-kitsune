@@ -11,6 +11,7 @@ import Converter from './pages/Converter';
 import Compare from './pages/Compare';
 import Favorites from './pages/Favorites';
 import Events from './pages/Events';
+import NotFound from './pages/NotFound';
 import ScrollToTop from './components/ScrollToTop';
 import { useTheme } from './hooks/useTheme';
 
@@ -30,6 +31,7 @@ export default function App() {
         <Route path="/events" element={<Events />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
       <ScrollToTop />
