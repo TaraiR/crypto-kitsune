@@ -29,23 +29,29 @@ export default function CoinDetail() {
   const [related, setRelated] = useState([]);
   const { toggle, isFav } = useFavorites();
 
+  // コイン基本情報＋関連コイン（idが変わった時のみ）
   useEffect(() => {
     setLoading(true);
     setCoin(null);
-    Promise.all([getCoinDetail(id), getMarketChart(id, days)]).then(([detail, chartData]) => {
+    getCoinDetail(id).then(detail => {
       setCoin(detail);
+      setLoading(false);
+    });
+    getMarkets(1).then(markets => {
+      setRelated(markets.filter(c => c.id !== id).slice(0, 6));
+    });
+  }, [id]);
+
+  // チャート（idまたはdaysが変わった時）
+  useEffect(() => {
+    if (!id) return;
+    getMarketChart(id, days).then(chartData => {
       setChart(chartData.prices.map(([ts, price]) => ({
         time: new Date(ts).toLocaleDateString('ja-JP', { month: 'short', day: 'numeric' }),
         price,
       })));
-      setLoading(false);
-      // 関連コイン：同カテゴリ周辺の上位コインを取得
-      getMarkets(1).then(markets => {
-        const others = markets.filter(c => c.id !== id).slice(0, 6);
-        setRelated(others);
-      });
     });
-  }, [id]);
+  }, [id, days]);
 
   if (loading) return <div className="loading container">読み込み中...</div>;
   if (!coin) return null;
@@ -138,7 +144,7 @@ export default function CoinDetail() {
           <h2 className="related-title">関連コイン</h2>
           <div className="related-grid">
             {related.map(c => {
-              const chg = c.price_change_percentage_24h;
+              const relChg = c.price_change_percentage_24h;
               return (
                 <Link key={c.id} to={`/coin/${c.id}`} className="related-card">
                   <img src={c.image} alt={c.name} width={28} height={28} />
@@ -152,8 +158,8 @@ export default function CoinDetail() {
                         ? `¥${c.current_price.toLocaleString('ja-JP', { maximumFractionDigits: 0 })}`
                         : `¥${c.current_price.toFixed(4)}`}
                     </span>
-                    <span className={`related-chg ${chg >= 0 ? 'up' : 'down'}`}>
-                      {chg >= 0 ? '▲' : '▼'}{Math.abs(chg).toFixed(2)}%
+                    <span className={`related-chg ${relChg >= 0 ? 'up' : 'down'}`}>
+                      {relChg >= 0 ? '▲' : '▼'}{Math.abs(relChg).toFixed(2)}%
                     </span>
                   </div>
                 </Link>

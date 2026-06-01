@@ -20,11 +20,15 @@ export default function Favorites() {
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // 初回マウント時のみ取得（削除はローカルで反映）
   useEffect(() => {
     if (!favorites.length) { setCoins([]); return; }
     setLoading(true);
     getCoinsByIds(favorites).then(data => { setCoins(data); setLoading(false); });
-  }, [favorites]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // お気に入り削除時にローカルで反映
+  const displayCoins = coins.filter(c => favorites.includes(c.id));
 
   return (
     <main className="container favorites">
@@ -52,7 +56,7 @@ export default function Favorites() {
               </tr>
             </thead>
             <tbody>
-              {coins.map(c => {
+              {displayCoins.map(c => {
                 const chg = c.price_change_percentage_24h;
                 return (
                   <tr key={c.id}>
