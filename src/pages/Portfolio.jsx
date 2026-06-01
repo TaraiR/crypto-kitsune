@@ -9,9 +9,12 @@ const fmt = (n) =>
 export default function Portfolio() {
   const [coins, setCoins] = useState([]);
   const [rows, setRows] = useState([{ coinId: '', amount: '' }]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getMarkets(1).then(setCoins);
+    getMarkets(1)
+      .then(data => { setCoins(data); setLoading(false); })
+      .catch(() => setLoading(false));
   }, []);
 
   const addRow = () => setRows(r => [...r, { coinId: '', amount: '' }]);
@@ -32,6 +35,11 @@ export default function Portfolio() {
     <main className="container portfolio">
       <h1 className="page-title">ポートフォリオ計算機</h1>
       <p className="page-sub">保有枚数を入力して、現在の評価額を計算できます。</p>
+
+      {loading && <div style={{ color: 'var(--muted)', padding: '20px 0' }}>コイン情報を読み込み中...</div>}
+      {!loading && coins.length === 0 && (
+        <div style={{ color: 'var(--down)', padding: '20px 0' }}>データの取得に失敗しました。ページを再読み込みしてください。</div>
+      )}
 
       <div className="portfolio-table">
         <div className="portfolio-header">

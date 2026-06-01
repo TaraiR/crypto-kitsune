@@ -6,9 +6,14 @@ export default function Converter() {
   const [coins, setCoins] = useState([]);
   const [coinId, setCoinId] = useState('bitcoin');
   const [amount, setAmount] = useState('1');
-  const [mode, setMode] = useState('crypto'); // crypto→jpy or jpy→crypto
+  const [mode, setMode] = useState('crypto');
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => { getMarkets(1).then(setCoins); }, []);
+  useEffect(() => {
+    getMarkets(1)
+      .then(data => { setCoins(data); setLoading(false); })
+      .catch(() => setLoading(false));
+  }, []);
 
   const coin = coins.find(c => c.id === coinId);
   const price = coin?.current_price ?? 0;
@@ -26,6 +31,12 @@ export default function Converter() {
       <h1 className="page-title">価格変換ツール</h1>
       <p className="page-sub">仮想通貨と日本円をかんたんに変換できます。</p>
 
+      {loading && <div className="loading">コイン情報を読み込み中...</div>}
+      {!loading && coins.length === 0 && (
+        <div className="loading">データの取得に失敗しました。ページを再読み込みしてください。</div>
+      )}
+
+      {!loading && coins.length > 0 && (
       <div className="converter-card">
         <div className="form-group">
           <label>コイン</label>
@@ -73,6 +84,7 @@ export default function Converter() {
           </div>
         )}
       </div>
+      )}
     </main>
   );
 }
